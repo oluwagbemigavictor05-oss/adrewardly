@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdRewardly</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      padding-bottom: 80px;
+    }
+
+    .header {
+      background: #ffffff;
+      padding: 22px 18px;
+      border-bottom: 1px solid #e7eaf0;
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .welcome {
+      margin-top: 5px;
+      color: #687386;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .balance-card {
+      background: #172033;
+      color: white;
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .balance-label {
+      font-size: 13px;
+      opacity: .75;
+    }
+
+    .balance {
+      font-size: 34px;
+      font-weight: 800;
+      margin: 8px 0 18px;
+    }
+
+    .wallet-btn {
+      background: white;
+      color: #172033;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .section-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin: 22px 0 12px;
+    }
+
+    .task {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #e7eaf0;
+    }
+
+    .task-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .task-title {
+      font-weight: 700;
+    }
+
+    .reward {
+      font-weight: 800;
+      color: #16a36a;
+      white-space: nowrap;
+    }
+
+    .task-description {
+      color: #687386;
+      font-size: 13px;
+      margin: 7px 0 13px;
+    }
+
+    .start-btn {
+      width: 100%;
+      border: none;
+      background: #172033;
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #e7eaf0;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 5px;
+    }
+
+    .nav button {
+      border: none;
+      background: none;
+      color: #687386;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 7px;
+    }
+
+    .nav button.active {
+      color: #172033;
+      font-weight: 800;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="brand">AdRewardly</div>
+    <div class="welcome" id="welcome">Welcome 👋</div>
+  </header>
+
+  <main class="container">
+
+    <section class="balance-card">
+      <div class="balance-label">Available Balance</div>
+
+      <div class="balance">
+        ₦0.00
+      </div>
+
+      <button class="wallet-btn">
+        Withdraw
+      </button>
+    </section>
+
+    <h2 class="section-title">
+      Available Tasks
+    </h2>
+
+    <div class="task">
+
+      <div class="task-top">
+        <div class="task-title">
+          Join a Telegram Channel
+        </div>
+
+        <div class="reward">
+          +₦50
+        </div>
+      </div>
+
+      <div class="task-description">
+        Join the advertiser's Telegram channel and complete the required action.
+      </div>
+
+      <button class="start-btn">
+        Start Task
+      </button>
+
+    </div>
+
+    <div class="task">
+
+      <div class="task-top">
+        <div class="task-title">
+          Visit Advertiser Website
+        </div>
+
+        <div class="reward">
+          +₦100
+        </div>
+      </div>
+
+      <div class="task-description">
+        Visit the advertiser's website and complete the required task.
+      </div>
+
+      <button class="start-btn">
+        Start Task
+      </button>
+
+    </div>
+
+    <div class="task">
+
+      <div class="task-top">
+        <div class="task-title">
+          Follow Social Page
+        </div>
+
+        <div class="reward">
+          +₦75
+        </div>
+      </div>
+
+      <div class="task-description">
+        Follow the advertiser's page and complete the verification process.
+      </div>
+
+      <button class="start-btn">
+        Start Task
+      </button>
+
+    </div>
+
+  </main>
+
+  <nav class="nav">
+
+    <button class="active">
+      🏠<br>
+      Home
+    </button>
+
+    <button>
+      📋<br>
+      Tasks
+    </button>
+
+    <button>
+      👛<br>
+      Wallet
+    </button>
+
+    <button>
+      👥<br>
+      Referrals
+    </button>
+
+    <button>
+      👤<br>
+      Profile
+    </button>
+
+  </nav>
+
+  <script>
+
+    const tg = window.Telegram?.WebApp;
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+
+      const user = tg.initDataUnsafe?.user;
+
+      if (user) {
+        const name = user.first_name || user.username || "there";
+
+        document.getElementById("welcome").textContent =
+          "Welcome, " + name + " 👋";
+      }
+    }
+
+  </script>
+
+</body>
+</html>
