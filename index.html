@@ -328,6 +328,8 @@ async function saveTelegramUser() {
   }
 }
 
+Telegram.WebApp.ready();
+
 setTimeout(() => {
   saveTelegramUser();
 }, 2000);
