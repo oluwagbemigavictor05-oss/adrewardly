@@ -328,7 +328,9 @@ async function saveTelegramUser() {
   }
 }
 
-saveTelegramUser();
+setTimeout(() => {
+  saveTelegramUser();
+}, 1000);
 </script>
 </body>
 </html>
