@@ -301,6 +301,34 @@
   );
 
   console.log("Supabase connected!");
+  // Create or update the Telegram user in Supabase
+async function saveTelegramUser() {
+  const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+
+  if (!tgUser) {
+    console.log("No Telegram user found.");
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("users")
+    .upsert({
+      telegram_id: tgUser.id,
+      username: tgUser.username || null,
+      first_name: tgUser.first_name || null,
+      last_name: tgUser.last_name || null
+    }, {
+      onConflict: "telegram_id"
+    });
+
+  if (error) {
+    console.error("Could not save user:", error);
+  } else {
+    console.log("Telegram user saved!");
+  }
+}
+
+saveTelegramUser();
 </script>
 </body>
 </html>
