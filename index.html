@@ -304,6 +304,7 @@
   // Create or update the Telegram user in Supabase
 async function saveTelegramUser() {
   const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+  console.log("Telegram data:", window.Telegram?.WebApp?.initDataUnsafe);
 
   if (!tgUser) {
     console.log("No Telegram user found.");
